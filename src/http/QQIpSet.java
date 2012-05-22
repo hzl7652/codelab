@@ -12,7 +12,7 @@ public class QQIpSet {
 		for(String ip : ips){
 			
 			Runtime.getRuntime().exec("route delete "+ip);
-			Runtime.getRuntime().exec("route add "+ip+" mask 255.255.255.255 192.168.0.2");
+			Runtime.getRuntime().exec("route add "+ip+" mask 255.255.255.255 192.168.0.1");
 		}
 	}
 }

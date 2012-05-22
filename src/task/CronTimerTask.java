@@ -1,6 +1,7 @@
 package task;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.TimerTask;
 
 public class CronTimerTask {
 
-	public static final Map<String,TimerAndTask> tasksList = new HashMap<String, TimerAndTask>();
+	public static final Map<String,TimerAndTask> tasksList = Collections.synchronizedMap(new HashMap<String, TimerAndTask>());
 	
 	public static void addTask(String name,Runnable task,Date start,long delay){
 		if(!tasksList.containsKey(name)){
@@ -47,34 +48,34 @@ public class CronTimerTask {
 		}else
 			return null;
 	}
-}
-class TimerAndTask {
-	protected Timer timer;
-	protected MyTask task;
-	public TimerAndTask(Timer timer,MyTask task){
-		this.timer = timer;
-		this.task = task;
+	static class TimerAndTask {
+		protected Timer timer;
+		protected MyTask task;
+		public TimerAndTask(Timer timer,MyTask task){
+			this.timer = timer;
+			this.task = task;
+		}
 	}
-}
-class MyTask extends TimerTask{
-	private  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-	protected String status = "任务尚未开始";
-	protected Date startTime = null;
-	protected long delay = 0;
-	private Runnable task = null;
-	public MyTask(Runnable task,Date start,long delay){
-		this.task = task;
-		this.startTime = start;
-		this.delay = delay;
-	}
-	@Override
-	public void run() {
-		try{
-			status = sdf.format(new Date())+ "  任务"+ "开始执行";
-			task.run();
-			status += "," + sdf.format(new Date())+"  任务于"+"执行结束";
-		}catch(Exception e){
-			status = "," + sdf.format(new Date())+"  任务执行失败，ERROR STATUS:"+e.getMessage();
+	static class MyTask extends TimerTask{
+		private  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		protected String status = "任务尚未开始";
+		protected Date startTime = null;
+		protected long delay = 0;
+		private Runnable task = null;
+		public MyTask(Runnable task,Date start,long delay){
+			this.task = task;
+			this.startTime = start;
+			this.delay = delay;
+		}
+		@Override
+		public void run() {
+			try{
+				status = sdf.format(new Date())+ "  任务"+ "开始执行";
+				task.run();
+				status += "," + sdf.format(new Date())+"  任务于"+"执行结束";
+			}catch(Exception e){
+				status = "," + sdf.format(new Date())+"  任务执行失败，ERROR STATUS:"+e.getMessage();
+			}
 		}
 	}
 }

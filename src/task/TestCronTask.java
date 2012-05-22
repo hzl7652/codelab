@@ -18,7 +18,7 @@ public class TestCronTask {
 			int code = sc.nextInt();
 			switch(code){
 			case 0:
-				Map<String ,MyTask> tasks = CronTimerTask.listTask();
+				Map<String ,CronTimerTask.MyTask> tasks = CronTimerTask.listTask();
 				if(tasks.size() == 0){
 					System.out.println("当前没有任务");
 				}else{
