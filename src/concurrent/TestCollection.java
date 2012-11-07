@@ -21,8 +21,8 @@ public class TestCollection {
 		final Map<Integer, Integer> map3 = new ConcurrentHashMap<Integer, Integer>();   // test success
 		final ConcurrentMap<Integer, Integer> map4 = new ConcurrentHashMap<Integer, Integer>();  // test success
 		int max = 10000;
-		int con = 100;
-		execute(con,max,new Runnable(){
+		int current = 100;
+		execute(current,max,new Runnable(){
 			public void run(){
 				try{
 					int r = new Random().nextInt(10);
@@ -42,7 +42,7 @@ public class TestCollection {
 		});
 		Assert.assertTrue(map.size()!=0);
 		
-		execute(con,max,new Runnable(){
+		execute(current,max,new Runnable(){
 			public void run(){
 				try{
 					int r = new Random().nextInt(10);
@@ -62,7 +62,7 @@ public class TestCollection {
 		});
 		Assert.assertEquals(0, map2.size());
 		
-		execute(con,max,new Runnable(){
+		execute(current,max,new Runnable(){
 			public void run(){
 				try{
 					int r = new Random().nextInt(10);
@@ -82,7 +82,7 @@ public class TestCollection {
 		});
 		Assert.assertEquals(0, map3.size());
 		
-		execute(con,max,new Runnable(){
+		execute(current,max,new Runnable(){
 			public void run(){
 				try{
 					int r = new Random().nextInt(10);
@@ -101,8 +101,6 @@ public class TestCollection {
 			}
 		});
 		Assert.assertEquals(0, map4.size());
-		
-		
 	}
 	@Test
 	public void testList(){

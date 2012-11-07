@@ -7,16 +7,13 @@ public class FivePersonAccess {
 	// 该方法只允许5个用户同时访问， 多于5人时需等待前面的人完成
 	public static void main(String[] args) {
 		final FivePersonAccess fpa = new FivePersonAccess();
-		new Thread(new Runnable() {
-			
+		new Thread(new Runnable(){
 			@Override
 			public void run() {
 				try {
 					Thread.sleep(200);
-					
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 				while(fpa.total.get() > 0){
 					System.out.println(String.format("fpa.total: %d ,active threads: %d ",fpa.total.get(),Thread.activeCount()));
@@ -26,10 +23,8 @@ public class FivePersonAccess {
 						e.printStackTrace();
 					}
 				}
-				
 			}
 		}).start();
-		
 		class MR implements Runnable{
 			int num = 0;
 			FivePersonAccess fpa = null;

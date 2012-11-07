@@ -1,5 +1,7 @@
 package basic;
 
+import junit.framework.TestCase;
+
 public class InnerClass {
 
 	private int value = 0;
@@ -37,5 +39,14 @@ public class InnerClass {
 		InnerClass.staticInnerClass sic = new staticInnerClass();
 		System.out.println(sic.getValue());
 		System.out.println(staticInnerClass.getValue2());
+		class inner  implements Runnable{
+			public void main(){
+			}
+
+			@Override
+			public void run() {
+				
+			}
+		}
 	}
 }
